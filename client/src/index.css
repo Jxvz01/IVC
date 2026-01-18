@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-ivc-bg text-white overflow-x-hidden antialiased;
+    @apply bg-ivc-bg text-ivc-text overflow-x-hidden antialiased;
     font-family: 'Inter', sans-serif;
   }
 }
@@ -13,13 +13,16 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0a0a0f; 
+  background: #f3f4f6;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #3b82f6; 
+  background: #cbd5e1;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563eb; 
+  background: #94a3b8;
 }

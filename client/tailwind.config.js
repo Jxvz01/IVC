@@ -8,11 +8,12 @@ export default {
     extend: {
       colors: {
         ivc: {
-          bg: "#0a0a0f",
-          card: "rgba(255, 255, 255, 0.05)",
-          primary: "#8b5cf6", // Violet
-          secondary: "#3b82f6", // Blue
-          accent: "#06b6d4", // Cyan
+          bg: "#ffffff",
+          card: "#f3f4f6", // gray-100
+          text: "#1f2937", // gray-800
+          primary: "#7c3aed", // Violet
+          secondary: "#2563eb", // Blue
+          accent: "#0891b2", // Cyan-600
         }
       },
       fontFamily: {

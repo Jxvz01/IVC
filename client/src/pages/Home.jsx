@@ -7,11 +7,6 @@ import logo from '../assets/logo.png';
 const Home = () => {
     return (
         <div className="relative isolate pt-24 pb-12 lg:pt-32 min-h-screen flex items-center">
-            {/* Background Elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-ivc-primary/20 rounded-full blur-3xl opacity-50 animate-pulse" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-ivc-accent/20 rounded-full blur-3xl opacity-50 animate-pulse" style={{ animationDelay: '1s' }} />
-            </div>
 
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-10 w-full">
                 <div className="max-w-3xl mx-auto text-center">
@@ -27,7 +22,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl"
+                        className="text-4xl font-extrabold tracking-tight text-ivc-text sm:text-6xl"
                     >
                         Innovate. Create. <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-ivc-primary to-ivc-accent">
@@ -38,7 +33,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="mt-6 text-lg leading-8 text-gray-300"
+                        className="mt-6 text-lg leading-8 text-gray-600"
                     >
                         IVC is the hub for student innovation, bringing together tech enthusiasts, designers, and dreamers to build future-ready solutions.
                     </motion.p>
@@ -48,15 +43,18 @@ const Home = () => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="mt-10 flex items-center justify-center gap-x-6"
                     >
-                        <Link
-                            to="/join"
-                            className="rounded-full bg-ivc-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-ivc-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivc-primary transition-all hover:scale-105"
+                        <button
+                            onClick={() => document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="rounded-full bg-ivc-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-ivc-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivc-primary transition-all hover:scale-105"
                         >
                             Join IVC
-                        </Link>
-                        <Link to="/projects" className="text-sm font-semibold leading-6 text-white flex items-center gap-1 hover:gap-2 transition-all">
+                        </button>
+                        <button
+                            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="text-sm font-semibold leading-6 text-ivc-text flex items-center gap-1 hover:gap-2 transition-all hover:text-ivc-primary"
+                        >
                             View Projects <ArrowRight size={16} />
-                        </Link>
+                        </button>
                     </motion.div>
                 </div>
             </div>

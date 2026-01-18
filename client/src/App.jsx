@@ -9,25 +9,26 @@ import Team from './pages/Team';
 import Join from './pages/Join';
 import Achievements from './pages/Achievements';
 
+import InteractiveBackground from './components/InteractiveBackground';
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-ivc-bg text-white font-sans selection:bg-ivc-primary selection:text-white flex flex-col">
+      <div className="min-h-screen bg-ivc-bg text-ivc-text font-sans selection:bg-ivc-primary selection:text-white flex flex-col relative">
+        <InteractiveBackground />
         <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/domains" element={<Domains />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/achievements" element={<Achievements />} />
-          </Routes>
+        <main className="flex-grow relative z-10">
+          <section id="home"><Home /></section>
+          <section id="about"><About /></section>
+          <section id="domains"><Domains /></section>
+          <section id="projects"><Projects /></section>
+          <section id="events"><Events /></section>
+          <section id="achievements"><Achievements /></section>
+          <section id="team"><Team /></section>
+          <section id="join"><Join /></section>
         </main>
 
-        <footer className="py-8 text-center text-gray-500 text-sm border-t border-white/10 bg-black/20 backdrop-blur-sm">
+        <footer className="py-8 text-center text-gray-500 text-sm border-t border-gray-200 bg-gray-50 backdrop-blur-sm">
           &copy; {new Date().getFullYear()} IVC - Innovation & Value Creation Club. All rights reserved.
         </footer>
       </div>
