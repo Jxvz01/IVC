@@ -4,7 +4,7 @@ A modern full-stack website built for the **Innovators and Visionaries Club (IVC
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 ### Frontend
 - React.js
@@ -17,7 +17,7 @@ A modern full-stack website built for the **Innovators and Visionaries Club (IVC
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 Modern website for Innovation & Value Creation Club.
 
 ## Project Structure
