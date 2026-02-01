@@ -17,64 +17,37 @@ const InteractiveBackground = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-indigo-50/30">
-            {/* Animated Gradient Orbs */}
-            <motion.div
-                animate={{
-                    x: [0, 100, 0],
-                    y: [0, -50, 0],
-                    scale: [1, 1.2, 1],
-                }}
-                transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
-                }}
-                className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-300/30 rounded-full blur-[100px]"
-            />
-            <motion.div
-                animate={{
-                    x: [0, -100, 0],
-                    y: [0, 100, 0],
-                    scale: [1, 1.5, 1],
-                }}
-                transition={{
-                    duration: 25,
-                    repeat: Infinity,
-                    ease: "linear"
-                }}
-                className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-blue-300/30 rounded-full blur-[100px]"
-            />
-            <motion.div
-                animate={{
-                    x: [0, 50, 0],
-                    y: [0, 50, 0],
-                }}
-                transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-                className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-cyan-200/30 rounded-full blur-[120px]"
-            />
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#05070a]">
+            {/* Liquid Light Layer (Static base) */}
+            <div className="absolute top-[-20%] left-[-10%] w-[1000px] h-[1000px] bg-ivc-primary/10 rounded-full blur-[160px] opacity-40 will-change-transform"></div>
+            <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-ivc-secondary/10 rounded-full blur-[160px] opacity-40 will-change-transform"></div>
 
-            {/* Mouse Follower */}
+            {/* Mouse Responsive Liquid Glow */}
             <motion.div
                 animate={{
-                    x: mousePosition.x - 200,
-                    y: mousePosition.y - 200,
+                    x: mousePosition.x - 400,
+                    y: mousePosition.y - 400,
                 }}
                 transition={{
                     type: "spring",
+                    stiffness: 80,
                     damping: 30,
-                    stiffness: 200,
-                    mass: 0.5
+                    mass: 2
                 }}
-                className="absolute w-[400px] h-[400px] bg-indigo-400/10 rounded-full blur-[80px] hidden md:block"
+                className="absolute w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-[120px] mix-blend-screen opacity-60 z-10 hidden md:block will-change-transform"
             />
 
-            {/* Grid Pattern Overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+            {/* Dot Grid Overlay - Softened */}
+            <div
+                className="absolute inset-0 z-20 opacity-[0.1]"
+                style={{
+                    backgroundImage: `radial-gradient(rgba(99, 102, 241, 0.4) 0.5px, transparent 0.5px)`,
+                    backgroundSize: '40px 40px'
+                }}
+            />
+
+            {/* Noise Texture for depth */}
+            <div className="absolute inset-0 z-30 opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import LiquidButton from '../components/LiquidButton';
 
 const Join = () => {
     const [formData, setFormData] = useState({
@@ -36,40 +37,63 @@ const Join = () => {
     };
 
     return (
-        <div className="pt-24 pb-12 px-4 max-w-xl mx-auto min-h-screen flex flex-col justify-center">
+        <div className="pt-32 pb-24 px-4 max-w-xl mx-auto min-h-screen flex flex-col justify-center">
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
             >
-                <h2 className="text-3xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-ivc-secondary to-ivc-accent">
-                    Join the Innovation Club
+                <h2 className="text-5xl font-black mb-10 text-center text-gradient tracking-tighter">
+                    Join the Club
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6 bg-ivc-card p-8 rounded-xl border border-gray-200 backdrop-blur-sm shadow-xl">
+                <form onSubmit={handleSubmit} className="space-y-8 glass-card p-10 rounded-3xl relative overflow-hidden">
+                    {/* Form Glow */}
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-ivc-primary to-ivc-secondary opacity-50"></div>
+
                     {['Name', 'Email', 'Department', 'Year'].map((field) => (
-                        <div key={field}>
-                            <label className="block text-sm font-medium text-gray-700">{field}</label>
+                        <div key={field} className="relative group">
+                            <label className="block text-xs font-black tracking-[0.2em] text-gray-400 uppercase mb-2 group-focus-within:text-ivc-secondary transition-colors">
+                                {field}
+                            </label>
                             <input
                                 type={field === 'Email' ? 'email' : 'text'}
                                 name={field.toLowerCase()}
                                 value={formData[field.toLowerCase()]}
                                 onChange={handleChange}
                                 required
-                                className="mt-1 block w-full rounded-md border-0 bg-white py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-ivc-primary sm:text-sm sm:leading-6 px-3 transition-all"
+                                className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-ivc-secondary/50 focus:border-ivc-secondary transition-all"
                             />
                         </div>
                     ))}
 
-                    <button
+                    <LiquidButton
                         type="submit"
-                        disabled={status === 'submitting'}
-                        className="w-full justify-center rounded-md bg-ivc-primary px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-ivc-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivc-primary disabled:opacity-50 transition-all hover:scale-[1.02]"
+                        loading={status === 'submitting'}
+                        className="w-full"
+                        variant="glass"
                     >
-                        {status === 'submitting' ? 'Submitting...' : 'Join Now'}
-                    </button>
+                        Submit Application
+                    </LiquidButton>
 
-                    {status === 'success' && <p className="text-green-400 text-center animate-pulse">Welcome to IVC! Check your email.</p>}
-                    {status === 'error' && <p className="text-red-400 text-center">Something went wrong. Ensure backend is running.</p>}
+                    {status === 'success' && (
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-ivc-secondary text-center font-bold"
+                        >
+                            Welcome to the future! Check your email.
+                        </motion.p>
+                    )}
+                    {status === 'error' && (
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-red-400 text-center font-bold"
+                        >
+                            Submission failed. Connectivity issue.
+                        </motion.p>
+                    )}
                 </form>
             </motion.div>
         </div>

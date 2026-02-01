@@ -7,6 +7,63 @@
     @apply bg-ivc-bg text-ivc-text overflow-x-hidden antialiased;
     font-family: 'Inter', sans-serif;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Sora', sans-serif;
+    @apply tracking-tight;
+  }
+}
+
+.liquid-glass {
+  @apply backdrop-blur-liquid bg-white/5 border border-white/10 shadow-ios;
+}
+
+.dark .liquid-glass {
+  @apply bg-black/30 border-white/5;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-ivc-primary via-ivc-secondary to-ivc-accent;
+}
+
+.ios-tap-active {
+  @apply active:scale-95 transition-transform duration-200 ease-ios;
+}
+
+.glass-button {
+  @apply relative overflow-hidden backdrop-blur-md bg-white/10 border border-white/20 shadow-ios transition-all duration-300;
+}
+
+.glass-button::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 transition-opacity duration-300;
+}
+
+.glass-button:hover::before {
+  @apply opacity-100;
+}
+
+@keyframes liquid-shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.animate-liquid {
+  animation: liquid-shimmer 2s infinite;
+}
+
+.will-change-transform {
+  will-change: transform, opacity;
 }
 
 /* Custom Scrollbar */

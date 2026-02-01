@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import LiquidButton from '../components/LiquidButton';
 
 const Events = () => {
     const [events, setEvents] = useState([]);
@@ -19,34 +20,47 @@ const Events = () => {
     }, []);
 
     return (
-        <div className="pt-24 pb-12 px-4 max-w-7xl mx-auto min-h-screen">
-            <h2 className="text-4xl font-bold mb-12 text-center text-ivc-text">Upcoming Events</h2>
+        <div className="pt-32 pb-24 px-4 max-w-7xl mx-auto min-h-screen">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-5xl font-black mb-16 text-center text-white tracking-tighter"
+            >
+                Upcoming <span className="text-gradient">Events</span>
+            </motion.h2>
+
             {loading ? (
                 <div className="flex justify-center items-center h-64">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ivc-primary"></div>
                 </div>
             ) : (
-                <div className="space-y-8">
+                <div className="space-y-12">
                     {events.map((event, index) => (
                         <motion.div
                             key={event.id}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            className="flex flex-col md:flex-row bg-ivc-card border border-gray-200 rounded-xl overflow-hidden hover:bg-gray-100 transition-colors shadow-sm"
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1, duration: 0.6 }}
+                            className="flex flex-col md:flex-row glass-card rounded-2xl overflow-hidden hover:border-ivc-primary/40 transition-all duration-500 group"
                         >
-                            <div className="md:w-1/3 h-48 md:h-auto relative">
-                                <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
-                                <div className="absolute top-0 left-0 bg-ivc-primary text-white px-4 py-1 rounded-br-lg font-bold">
+                            <div className="md:w-1/3 h-64 md:h-auto relative">
+                                <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#05070a]/80 to-transparent"></div>
+                                <div className="absolute top-4 left-4 glass-card bg-ivc-primary/20 backdrop-blur-xl text-white px-5 py-2 rounded-full font-black tracking-widest text-xs border border-white/20 uppercase">
                                     {event.date}
                                 </div>
                             </div>
-                            <div className="p-6 md:w-2/3 flex flex-col justify-center">
-                                <h3 className="text-2xl font-bold mb-2 text-ivc-text">{event.title}</h3>
-                                <p className="text-gray-600 mb-4">{event.description}</p>
-                                <button className="w-fit px-4 py-2 border border-ivc-primary text-ivc-primary rounded-lg hover:bg-ivc-primary hover:text-white transition-all">
+                            <div className="p-10 md:w-2/3 flex flex-col justify-center relative">
+                                <h3 className="text-3xl font-black mb-3 text-white tracking-tight group-hover:text-ivc-secondary transition-colors">{event.title}</h3>
+                                <p className="text-gray-400 mb-8 leading-relaxed text-lg max-w-xl">{event.description}</p>
+                                <LiquidButton variant="glass" className="w-fit">
                                     Register Now
-                                </button>
+                                </LiquidButton>
+
+                                {/* Background glow decoration */}
+                                <div className="absolute top-1/2 right-10 -translate-y-1/2 w-32 h-32 bg-ivc-primary/5 blur-[80px] rounded-full pointer-events-none"></div>
                             </div>
                         </motion.div>
                     ))}

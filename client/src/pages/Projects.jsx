@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import LiquidButton from '../components/LiquidButton';
 
 const Projects = () => {
     const [projects, setProjects] = useState([]);
@@ -34,8 +35,15 @@ const Projects = () => {
     };
 
     return (
-        <div className="pt-24 pb-12 px-4 max-w-7xl mx-auto min-h-screen">
-            <h2 className="text-4xl font-bold mb-12 text-center text-ivc-text">Our Projects</h2>
+        <div className="pt-32 pb-24 px-4 max-w-7xl mx-auto min-h-screen">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-5xl font-black mb-16 text-center text-white tracking-tighter"
+            >
+                Our <span className="text-gradient">Projects</span>
+            </motion.h2>
 
             {loading ? (
                 <div className="flex justify-center items-center h-64">
@@ -45,28 +53,34 @@ const Projects = () => {
                 <motion.div
                     variants={container}
                     initial="hidden"
-                    animate="show"
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
                 >
                     {projects.map((project) => (
                         <motion.div
                             key={project.id}
                             variants={item}
-                            className="bg-ivc-card border border-gray-200 rounded-xl overflow-hidden hover:border-ivc-primary/50 transition-colors group hover:shadow-lg hover:shadow-ivc-primary/10"
+                            whileHover={{ y: -12, scale: 1.02 }}
+                            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                            className="liquid-glass group relative h-full rounded-ios-xl overflow-hidden will-change-transform"
                         >
-                            <div className="h-48 bg-gray-200 overflow-hidden relative">
-                                <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                <div className="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-xs font-mono border border-white/20 text-white">
+                            <div className="h-64 overflow-hidden relative">
+                                <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                                <div className="absolute top-4 left-4 liquid-glass bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black tracking-[0.2em] border border-white/20 text-white uppercase">
                                     {project.domain}
                                 </div>
                             </div>
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold mb-2 group-hover:text-ivc-accent transition-colors text-ivc-text">{project.title}</h3>
-                                <p className="text-gray-600 text-sm mb-4">{project.description}</p>
-                                <button className="text-ivc-primary text-sm font-semibold hover:text-ivc-secondary transition-colors">
-                                    Read More &rarr;
-                                </button>
+                            <div className="p-10">
+                                <h3 className="text-3xl font-black mb-3 text-white tracking-tighter group-hover:text-ivc-secondary transition-colors">{project.title}</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-8 h-12 overflow-hidden line-clamp-2">{project.description}</p>
+                                <LiquidButton className="!px-6 !py-2 text-[8px] tracking-[0.4em]" variant="glass">
+                                    View Details
+                                </LiquidButton>
                             </div>
+                            {/* Liquid Reflection Overlay */}
+                            <div className="absolute inset-0 border border-white/5 rounded-ios-xl pointer-events-none"></div>
                         </motion.div>
                     ))}
                 </motion.div>
