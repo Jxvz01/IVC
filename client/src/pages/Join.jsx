@@ -44,10 +44,10 @@ const Join = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
             >
-                <h2 className="text-5xl font-black mb-10 text-center text-gradient tracking-tighter">
+                <h2 className="text-4xl md:text-5xl font-black mb-10 text-center text-gradient tracking-tighter">
                     Join the Club
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-8 glass-card p-10 rounded-3xl relative overflow-hidden">
+                <form onSubmit={handleSubmit} className="space-y-8 glass-card p-6 md:p-10 rounded-2xl md:rounded-3xl relative overflow-hidden">
                     {/* Form Glow */}
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-ivc-primary to-ivc-secondary opacity-50"></div>
 

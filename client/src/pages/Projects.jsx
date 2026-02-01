@@ -40,7 +40,7 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl font-black mb-16 text-center text-white tracking-tighter"
+                className="text-4xl md:text-5xl font-black mb-12 md:mb-16 text-center text-white tracking-tighter"
             >
                 Our <span className="text-gradient">Projects</span>
             </motion.h2>
@@ -72,8 +72,8 @@ const Projects = () => {
                                     {project.domain}
                                 </div>
                             </div>
-                            <div className="p-10">
-                                <h3 className="text-3xl font-black mb-3 text-white tracking-tighter group-hover:text-ivc-secondary transition-colors">{project.title}</h3>
+                            <div className="p-6 md:p-10">
+                                <h3 className="text-2xl md:text-3xl font-black mb-3 text-white tracking-tighter group-hover:text-ivc-secondary transition-colors">{project.title}</h3>
                                 <p className="text-gray-400 text-sm leading-relaxed mb-8 h-12 overflow-hidden line-clamp-2">{project.description}</p>
                                 <LiquidButton className="!px-6 !py-2 text-[8px] tracking-[0.4em]" variant="glass">
                                     View Details

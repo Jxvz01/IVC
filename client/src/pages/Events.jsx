@@ -25,7 +25,7 @@ const Events = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl font-black mb-16 text-center text-white tracking-tighter"
+                className="text-4xl md:text-5xl font-black mb-12 md:mb-16 text-center text-white tracking-tighter"
             >
                 Upcoming <span className="text-gradient">Events</span>
             </motion.h2>
@@ -52,9 +52,9 @@ const Events = () => {
                                     {event.date}
                                 </div>
                             </div>
-                            <div className="p-10 md:w-2/3 flex flex-col justify-center relative">
-                                <h3 className="text-3xl font-black mb-3 text-white tracking-tight group-hover:text-ivc-secondary transition-colors">{event.title}</h3>
-                                <p className="text-gray-400 mb-8 leading-relaxed text-lg max-w-xl">{event.description}</p>
+                            <div className="p-6 md:p-10 md:w-2/3 flex flex-col justify-center relative">
+                                <h3 className="text-2xl md:text-3xl font-black mb-3 text-white tracking-tight group-hover:text-ivc-secondary transition-colors">{event.title}</h3>
+                                <p className="text-gray-400 mb-8 leading-relaxed text-base md:text-lg max-w-xl">{event.description}</p>
                                 <LiquidButton variant="glass" className="w-fit">
                                     Register Now
                                 </LiquidButton>

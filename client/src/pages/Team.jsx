@@ -6,7 +6,7 @@ const Team = () => (
         <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-5xl font-black mb-16 text-white tracking-tighter"
+            className="text-4xl md:text-5xl font-black mb-12 md:mb-16 text-white tracking-tighter"
         >
             Meet the <span className="text-gradient">Team</span>
         </motion.h2>
@@ -16,7 +16,7 @@ const Team = () => (
                 <motion.div
                     key={d}
                     whileHover={{ y: -10, scale: 1.02 }}
-                    className="liquid-glass p-8 rounded-[32px] border border-white/10 group"
+                    className="liquid-glass p-6 md:p-8 rounded-[28px] md:rounded-[32px] border border-white/10 group"
                 >
                     <div className="w-24 h-24 bg-white/5 rounded-full mx-auto mb-6 relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-tr from-ivc-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

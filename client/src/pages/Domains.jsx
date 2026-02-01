@@ -36,7 +36,7 @@ const DomainCard = ({ title, description }) => {
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
             whileHover={{ scale: 1.05, y: -10 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative p-10 rounded-[32px] bg-white/[0.03] backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden cursor-pointer"
+            className="group relative p-6 md:p-10 rounded-[28px] md:rounded-[32px] bg-white/[0.03] backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden cursor-pointer"
         >
             {/* Liquid Highlight Effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -79,7 +79,7 @@ const Domains = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-6xl font-black mb-20 text-center text-white tracking-tighter"
+                className="text-4xl md:text-6xl font-black mb-12 md:mb-20 text-center text-white tracking-tighter"
             >
                 Our <span className="text-gradient">Domains</span>
             </motion.h2>

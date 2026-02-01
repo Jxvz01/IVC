@@ -16,7 +16,7 @@ const Home = () => {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                    className="liquid-glass max-w-5xl mx-auto rounded-[40px] p-8 md:p-20 relative overflow-hidden group"
+                    className="liquid-glass max-w-5xl mx-auto rounded-[32px] md:rounded-[40px] p-6 md:p-20 relative overflow-hidden group"
                 >
                     {/* Inner Reflection Glow */}
                     <div className="absolute top-[-20%] left-[-10%] w-full h-[300px] bg-white/5 blur-[80px] rounded-full skew-y-12 transition-transform duration-1000 group-hover:translate-x-full"></div>
@@ -33,7 +33,7 @@ const Home = () => {
                             </div>
                         </motion.div>
 
-                        <h1 className="text-5xl font-black tracking-tighter text-white sm:text-8xl mb-8 leading-[0.9]">
+                        <h1 className="text-4xl font-black tracking-tighter text-white sm:text-7xl md:text-8xl mb-8 leading-[0.9]">
                             {words.map((word, i) => (
                                 <motion.span
                                     key={i}
