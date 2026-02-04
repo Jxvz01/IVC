@@ -14,10 +14,10 @@ const LoadingScreen = () => {
             <motion.div exit={{ opacity: 0 }} transition={{ duration: 0.8 }} className="absolute inset-0 z-[-1]" />
 
             {/* Same structure as Home page */}
-            <div className="relative isolate pt-32 pb-24 min-h-screen flex items-start justify-center">
-                <div className="px-4 mx-auto max-w-7xl relative z-10 w-full mt-10">
+            <div className="relative isolate min-h-screen flex items-center justify-center px-4 py-20">
+                <div className="mx-auto max-w-7xl relative z-10 w-full h-full flex flex-col justify-center">
                     {/* Glass Container Wrapper */}
-                    <div className="relative max-w-5xl mx-auto p-6 md:p-20 group">
+                    <div className="relative max-w-5xl mx-auto w-full p-8 md:p-16 lg:p-24 group min-h-[70vh] flex flex-col justify-center">
 
                         {/* Glass Look Removed - Content floats on background */}
 
