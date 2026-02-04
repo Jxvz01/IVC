@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
-import logo from '../assets/logo.png';
+
 import LiquidButton from '../components/LiquidButton';
 
 const Home = () => {
@@ -31,7 +30,7 @@ const Home = () => {
                             <div className="relative">
                                 <motion.img
                                     layoutId="main-logo"
-                                    src="/logo_loading.png"
+                                    src="/logo.png"
                                     alt="IVC Logo"
                                     className="relative w-28 h-28 md:w-36 md:h-36 drop-shadow-liquid"
                                 />

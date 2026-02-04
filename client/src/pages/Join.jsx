@@ -53,10 +53,14 @@ const Join = () => {
 
                     {['Name', 'Email', 'Department', 'Year'].map((field) => (
                         <div key={field} className="relative group">
-                            <label className="block text-xs font-black tracking-[0.2em] text-gray-400 uppercase mb-2 group-focus-within:text-ivc-secondary transition-colors">
+                            <label
+                                htmlFor={field.toLowerCase()}
+                                className="block text-xs font-black tracking-[0.2em] text-gray-400 uppercase mb-2 group-focus-within:text-ivc-secondary transition-colors"
+                            >
                                 {field}
                             </label>
                             <input
+                                id={field.toLowerCase()}
                                 type={field === 'Email' ? 'email' : 'text'}
                                 name={field.toLowerCase()}
                                 value={formData[field.toLowerCase()]}

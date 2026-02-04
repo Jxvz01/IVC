@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const LiquidButton = ({
     children,

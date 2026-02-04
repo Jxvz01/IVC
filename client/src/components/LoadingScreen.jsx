@@ -33,7 +33,7 @@ const LoadingScreen = () => {
                                 <div className="relative">
                                     <motion.img
                                         layoutId="main-logo"
-                                        src="/logo_loading.png"
+                                        src="/logo.png"
                                         alt="IVC Logo"
                                         className="relative w-28 h-28 md:w-36 md:h-36 drop-shadow-liquid"
                                     />

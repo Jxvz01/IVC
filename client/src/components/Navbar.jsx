@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowLeft } from 'lucide-react';
+import { Menu, ArrowLeft } from 'lucide-react';
 
-import logo from '../assets/logo.png';
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +51,7 @@ const Navbar = () => {
                 ${isOpen ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto md:flex' : 'flex'}
             `}>
                 <button onClick={() => scrollToSection('home')} className="flex items-center space-x-3 rtl:space-x-reverse bg-transparent border-none cursor-pointer group">
-                    <img src={logo} className="h-10 w-auto group-hover:scale-110 transition-transform duration-300" alt="IVC Logo" />
+                    <img src="/logo.png" className="h-10 w-auto group-hover:scale-110 transition-transform duration-300" alt="IVC Logo" />
                     <span className="self-center text-2xl font-black tracking-tighter whitespace-nowrap text-gradient">IVC</span>
                 </button>
                 <div className="flex md:hidden rtl:space-x-reverse">

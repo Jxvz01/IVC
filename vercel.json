@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "cleanUrls": true,
     "builds": [
         {
             "src": "server/index.js",
@@ -23,7 +24,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "index.html"
+            "dest": "/index.html"
         }
     ]
 }
