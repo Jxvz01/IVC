@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -7,8 +9,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
+// 🛡️ Security Middleware
+app.use(helmet()); // Sets various HTTP headers for security
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production'
+        ? ['https://your-domain.com'] // Update this before deploying
+        : true, // Allow all in development
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
+
+// 🚦 Global Rate Limiting (General protection)
+const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per window
+    message: { error: 'Too many requests, please try again later.' }
+});
+app.use('/api', globalLimiter);
+
+// 📦 Payload Size Limiting
+app.use(express.json({ limit: '10kb' })); // Prevents large JSON body attacks
 
 // Mock Data
 const events = [
@@ -45,20 +65,7 @@ const projects = [
     }
 ];
 
-const fs = require('fs');
-const path = require('path');
-
-const DATA_FILE = path.join(__dirname, 'members.json');
-
-// Initialize members from file
-let members = [];
-if (fs.existsSync(DATA_FILE)) {
-    try {
-        members = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    } catch (e) {
-        console.error('Error loading members data', e);
-    }
-}
+const members = []; // In-memory store for join requests (resets on server restart)
 
 // Routes
 app.get('/api', (req, res) => {
@@ -73,22 +80,42 @@ app.get('/api/projects', (req, res) => {
     res.json(projects);
 });
 
-app.post('/api/join', (req, res) => {
+// 📨 Targeted Rate Limiting for the Join route (Anti-Spam)
+const joinLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 5, // Limit each IP to 5 join requests per hour
+    message: { error: 'Too many applications from this IP, please try again after an hour.' }
+});
+
+app.post('/api/join', joinLimiter, (req, res) => {
     const { name, email, department, year } = req.body;
+
+    // Simple Data Validation
     if (!name || !email) {
         return res.status(400).json({ error: 'Name and Email are required' });
     }
-    const newMember = { id: members.length + 1, name, email, department, year, joinedAt: new Date() };
-    members.push(newMember);
 
-    // Persist to file
-    try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(members, null, 2));
-    } catch (e) {
-        console.error('Error saving members data', e);
+    // Basic length and format checks
+    if (name.length > 50 || email.length > 100) {
+        return res.status(400).json({ error: 'Input too long' });
     }
 
-    console.log('New Member Joined:', newMember);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    const newMember = {
+        id: members.length + 1,
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        department: department?.trim() || 'N/A',
+        year: year?.trim() || 'N/A',
+        joinedAt: new Date()
+    };
+
+    members.push(newMember);
+    console.log('New Member Joined:', newMember.name);
     res.status(201).json({ message: 'Successfully joined IVC!', member: newMember });
 });
 
