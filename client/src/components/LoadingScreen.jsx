@@ -14,10 +14,10 @@ const LoadingScreen = () => {
             <motion.div exit={{ opacity: 0 }} transition={{ duration: 0.8 }} className="absolute inset-0 z-[-1]" />
 
             {/* Same structure as Home page */}
-            <div className="relative isolate min-h-screen flex items-center justify-center px-4 py-20">
-                <div className="mx-auto max-w-7xl relative z-10 w-full h-full flex flex-col justify-center">
+            <div className="relative isolate pt-32 pb-24 min-h-screen flex items-start justify-center">
+                <div className="px-4 mx-auto max-w-7xl relative z-10 w-full mt-10">
                     {/* Glass Container Wrapper */}
-                    <div className="relative max-w-5xl mx-auto w-full p-8 md:p-16 lg:p-24 group min-h-[70vh] flex flex-col justify-center">
+                    <div className="relative max-w-5xl mx-auto p-6 md:p-20 group">
 
                         {/* Glass Look Removed - Content floats on background */}
 
@@ -33,7 +33,7 @@ const LoadingScreen = () => {
                                 <div className="relative">
                                     <motion.img
                                         layoutId="main-logo"
-                                        src="/logo_loading.png"
+                                        src="/logo.png"
                                         alt="IVC Logo"
                                         className="relative w-28 h-28 md:w-36 md:h-36 drop-shadow-liquid"
                                     />
