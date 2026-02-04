@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet()); // Sets various HTTP headers for security
 app.use(cors({
     origin: process.env.NODE_ENV === 'production'
-        ? ['https://your-domain.com'] // Update this before deploying
+        ? ['https://ivc-vvce.vercel.app']
         : true, // Allow all in development
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
