@@ -14,6 +14,7 @@ const Navbar = () => {
         { name: 'Domains', id: 'domains' },
         { name: 'Projects', id: 'projects' },
         { name: 'Events', id: 'events' },
+        { name: 'Achievements', id: 'achievements' },
         { name: 'Team', id: 'team' },
         { name: 'Join IVC', id: 'join' },
     ];

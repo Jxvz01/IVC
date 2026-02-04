@@ -18,9 +18,17 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time for aesthetics
+    // Check if user has already seen the full loader this session
+    const hasLoaded = sessionStorage.getItem('ivc_loaded');
+
+    if (hasLoaded) {
+      setLoading(false);
+      return;
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
+      sessionStorage.setItem('ivc_loaded', 'true');
     }, 3500);
     return () => clearTimeout(timer);
   }, []);
@@ -28,11 +36,11 @@ function App() {
   return (
     <Router>
       <InteractiveBackground />
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {loading ? (
           <LoadingScreen key="loader" />
         ) : (
-          <div key="content" className="min-h-screen text-ivc-text font-sans selection:bg-ivc-primary selection:text-white flex flex-col relative">
+          <div key="content" className="min-h-screen text-ivc-text font-sans selection:bg-ivc-primary selection:text-white flex flex-col relative overflow-x-hidden">
             <Navbar />
             <main className="flex-grow relative z-10">
               <section id="home"><Home /></section>
@@ -45,8 +53,11 @@ function App() {
               <section id="join"><Join /></section>
             </main>
 
-            <footer className="py-8 text-center text-gray-500 text-sm border-t border-gray-200 bg-gray-50 backdrop-blur-sm">
-              &copy; {new Date().getFullYear()} IVC - Innovation & Value Creation Club. All rights reserved.
+            <footer className="py-12 text-center text-gray-500 text-sm border-t border-white/5 bg-white/[0.02] backdrop-blur-xl">
+              <div className="max-w-7xl mx-auto px-4">
+                <p className="mb-2">&copy; {new Date().getFullYear()} IVC - Innovation & Value Creation Club.</p>
+                <p className="text-gray-600">Built with passion for the next generation of innovators.</p>
+              </div>
             </footer>
           </div>
         )}

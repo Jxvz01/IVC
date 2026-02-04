@@ -12,16 +12,53 @@ app.use(express.json());
 
 // Mock Data
 const events = [
-    { id: 1, title: 'Hackathon 2024', date: '2024-03-15', description: 'Annual 24h Hackathon', image: 'https://via.placeholder.com/300' },
-    { id: 2, title: 'AI Workshop', date: '2024-04-10', description: 'Intro to GenAI', image: 'https://via.placeholder.com/300' }
+    {
+        id: 1,
+        title: 'Innovation Summit 2024',
+        date: 'MARCH 15, 2024',
+        description: 'Our flagship 24-hour hackathon where ideas turn into reality. Join 200+ creators for a night of building.',
+        image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1000'
+    },
+    {
+        id: 2,
+        title: 'GenAI Workshop',
+        date: 'APRIL 10, 2024',
+        description: 'Deep dive into Large Language Models and Generative AI. Learn how to build the next generation of smart apps.',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000'
+    }
 ];
 
 const projects = [
-    { id: 1, title: 'Smart Campus', domain: 'IoT', description: 'Automating text messaging', image: 'https://via.placeholder.com/300' },
-    { id: 2, title: 'Health AI', domain: 'AI/ML', description: 'Diagnosing diseases early', image: 'https://via.placeholder.com/300' }
+    {
+        id: 1,
+        title: 'Smart Campus Ecosystem',
+        domain: 'IoT',
+        description: 'A connected mesh network of sensors optimizing energy consumption across student dormitories.',
+        image: 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?q=80&w=1000'
+    },
+    {
+        id: 2,
+        title: 'Pulse AI',
+        domain: 'AI/ML',
+        description: 'Advanced early diagnosis system using computer vision to identify anomalies in medical imaging.',
+        image: 'https://images.unsplash.com/photo-1576091160550-217359f4ecf8?q=80&w=1000'
+    }
 ];
 
-const members = []; // In-memory store for join requests
+const fs = require('fs');
+const path = require('path');
+
+const DATA_FILE = path.join(__dirname, 'members.json');
+
+// Initialize members from file
+let members = [];
+if (fs.existsSync(DATA_FILE)) {
+    try {
+        members = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    } catch (e) {
+        console.error('Error loading members data', e);
+    }
+}
 
 // Routes
 app.get('/api', (req, res) => {
@@ -43,6 +80,14 @@ app.post('/api/join', (req, res) => {
     }
     const newMember = { id: members.length + 1, name, email, department, year, joinedAt: new Date() };
     members.push(newMember);
+
+    // Persist to file
+    try {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(members, null, 2));
+    } catch (e) {
+        console.error('Error saving members data', e);
+    }
+
     console.log('New Member Joined:', newMember);
     res.status(201).json({ message: 'Successfully joined IVC!', member: newMember });
 });
