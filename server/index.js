@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 🛡️ Security Middleware
+// Security Middleware
 app.use(helmet()); // Sets various HTTP headers for security
 app.use(cors({
     origin: process.env.NODE_ENV === 'production'
@@ -19,7 +19,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 
-// 🚦 Global Rate Limiting (General protection)
+// Global Rate Limiting (General protection)
 const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // Limit each IP to 100 requests per window
@@ -27,7 +27,7 @@ const globalLimiter = rateLimit({
 });
 app.use('/api', globalLimiter);
 
-// 📦 Payload Size Limiting
+// Payload Size Limiting
 app.use(express.json({ limit: '10kb' })); // Prevents large JSON body attacks
 
 // Mock Data
@@ -80,7 +80,7 @@ app.get('/api/projects', (req, res) => {
     res.json(projects);
 });
 
-// 📨 Targeted Rate Limiting for the Join route (Anti-Spam)
+// Targeted Rate Limiting for the Join route (Anti-Spam)
 const joinLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 5, // Limit each IP to 5 join requests per hour

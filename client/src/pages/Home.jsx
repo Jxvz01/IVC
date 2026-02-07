@@ -1,8 +1,4 @@
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-
-
-import LiquidButton from '../components/LiquidButton';
 
 const Home = () => {
     const tagline = "IDEATE VISUALIZE CREATE";

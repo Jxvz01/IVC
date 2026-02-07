@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, ArrowLeft } from 'lucide-react';
-
-
-
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
@@ -11,12 +8,12 @@ const Navbar = () => {
     const links = [
         { name: 'Home', id: 'home' },
         { name: 'About', id: 'about' },
+        { name: 'Team', id: 'team' },
+        { name: 'Events', id: 'events' },
         { name: 'Domains', id: 'domains' },
         { name: 'Projects', id: 'projects' },
-        { name: 'Events', id: 'events' },
-        { name: 'Achievements', id: 'achievements' },
-        { name: 'Team', id: 'team' },
         { name: 'Join IVC', id: 'join' },
+        { name: 'Achievements', id: 'achievements' },
     ];
 
     const scrollToSection = (id) => {

@@ -6,11 +6,9 @@ const LoadingScreen = () => {
     return (
         <motion.div
             initial={{ opacity: 1 }}
-            // Removed exit={{ opacity: 0 }} from root to allow logo to stay
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] overflow-y-scroll custom-scrollbar"
+            className="fixed inset-0 z-[100]"
         >
-            {/* Background fades out - Removed duplicate InteractiveBackground */}
             <motion.div exit={{ opacity: 0 }} transition={{ duration: 0.8 }} className="absolute inset-0 z-[-1]" />
 
             {/* Same structure as Home page */}

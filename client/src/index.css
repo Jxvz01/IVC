@@ -48,19 +48,6 @@
   @apply opacity-100;
 }
 
-@keyframes liquid-shimmer {
-  0% {
-    transform: translateX(-100%) skewX(-15deg);
-  }
-
-  100% {
-    transform: translateX(200%) skewX(-15deg);
-  }
-}
-
-.animate-liquid {
-  animation: liquid-shimmer 2s infinite;
-}
 
 .will-change-transform {
   will-change: transform, opacity;

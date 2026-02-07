@@ -46,8 +46,6 @@ const InteractiveBackground = () => {
                 }}
             />
 
-            {/* Noise Texture for depth */}
-            <div className="absolute inset-0 z-30 opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
         </div>
     );
 };
