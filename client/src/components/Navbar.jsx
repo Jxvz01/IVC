@@ -48,8 +48,8 @@ const Navbar = () => {
         <nav className="fixed left-1/2 -translate-x-1/2 z-50 top-6 w-[95%] max-w-7xl">
             {/* Main Navbar Bar - Hidden on mobile if menu is open */}
             <div className={`
-                bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-2xl items-center justify-between px-6 py-3 transition-opacity duration-300
-                ${isOpen ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto md:flex' : 'flex'}
+                bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-2xl items-center justify-between px-6 py-3
+                ${isOpen ? 'hidden md:flex' : 'flex'}
             `}>
                 <button onClick={() => scrollToSection('home')} className="flex items-center space-x-3 rtl:space-x-reverse bg-transparent border-none cursor-pointer group">
                     <img src="/logo.png" className="h-10 w-auto group-hover:scale-110 transition-transform duration-300" alt="IVC Logo" />
@@ -105,11 +105,18 @@ const Navbar = () => {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: '100%', opacity: 0 }}
                         transition={{ type: "spring", stiffness: 400, damping: 40 }}
-                        className="fixed top-6 right-6 w-[220px] z-[60] md:hidden"
+                        className="fixed top-6 right-6 w-[280px] z-[60] md:hidden"
                     >
                         <div className="w-full relative group">
                             {/* Glass Panel */}
-                            <div className="w-full bg-white/[0.01] backdrop-blur-3xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)] relative flex flex-col border border-white/10 rounded-[32px] overflow-hidden">
+                            <div
+                                className="w-full bg-white/[0.01] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)] relative flex flex-col border border-white/10 rounded-[32px] overflow-hidden transform-gpu"
+                                style={{ backfaceVisibility: 'hidden' }}
+                            >
+                                <div
+                                    className="absolute inset-0 backdrop-blur-3xl bg-black/10 -z-10"
+                                    style={{ willChange: 'backdrop-filter' }}
+                                />
 
                                 {/* Glossy Reflection Effect */}
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
@@ -151,9 +158,8 @@ const Navbar = () => {
                                 {/* Bottom Elements */}
                                 <div className="mt-8 pt-8 border-t border-white/10 flex flex-col items-center relative z-10">
                                     <img src="/logo.png" className="h-14 w-auto mb-4 opacity-100 brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" alt="" />
-                                    <div className="text-[10px] tracking-[0.3em] text-white/90 uppercase font-black text-center leading-loose">
-                                        Ideate . Visualize .<br />
-                                        <span className="tracking-[0.5em] text-white">Create</span>
+                                    <div className="text-[10px] tracking-[0.2em] text-white/90 uppercase font-black text-center whitespace-nowrap">
+                                        Ideate . Visualize . Create
                                     </div>
                                 </div>
                             </div>
