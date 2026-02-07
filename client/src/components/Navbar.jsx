@@ -143,6 +143,15 @@ const Navbar = () => {
                                 ))}
                             </ul>
 
+                            {/* Bottom Elements */}
+                            <div className="mt-8 pt-8 border-t border-white/10 flex flex-col items-center">
+                                <img src="/logo.png" className="h-10 w-auto mb-4 opacity-40" alt="" />
+                                <div className="text-[8px] tracking-[0.3em] text-white/30 uppercase font-black text-center leading-loose">
+                                    Ideate . Visualize .<br />
+                                    <span className="tracking-[0.5em]">Create</span>
+                                </div>
+                            </div>
+
                             {/* Reflective Element */}
                             <div className="absolute bottom-[-10%] right-[-10%] w-[120%] h-[40%] bg-ivc-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
                         </div>
