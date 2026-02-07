@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <div className="relative isolate min-h-screen flex items-center justify-center pt-20">
             <div className="px-4 mx-auto max-w-7xl relative z-10 w-full">
-                <div className="relative max-w-5xl mx-auto p-12 md:p-24 group">
+                <div className="relative max-w-5xl mx-auto py-32 px-10 md:p-24 group">
                     {/* Glass Card Background - Animates In separately */}
                     <motion.div
                         initial={{ scale: 0.9, opacity: 0 }}
