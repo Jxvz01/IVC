@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, ArrowLeft } from 'lucide-react';
-import logo from '../assets/logo.png';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
@@ -14,7 +14,7 @@ const Navbar = () => {
         { name: 'Domains', id: 'domains' },
         { name: 'Projects', id: 'projects' },
         { name: 'Achievements', id: 'achievements' },
-        { name: 'Join IVC', id: 'join' },
+        { name: 'Join Us', id: 'join' },
     ];
 
     const scrollToSection = (id) => {
@@ -50,8 +50,6 @@ const Navbar = () => {
                 ${isOpen ? 'hidden' : 'flex'}
             `}>
                 <button onClick={() => scrollToSection('home')} className="flex items-center space-x-3 rtl:space-x-reverse bg-transparent border-none cursor-pointer group">
-                    <img src={logo} className="h-10 w-auto group-hover:scale-110 transition-transform duration-300" alt="IVC Logo" />
-                    <span className="self-center text-2xl font-black tracking-tighter whitespace-nowrap text-gradient">IVC</span>
                 </button>
 
                 <div className="flex rtl:space-x-reverse">
@@ -137,12 +135,6 @@ const Navbar = () => {
                                 </ul>
 
                                 {/* Bottom Elements */}
-                                <div className="mt-8 pt-8 border-t border-white/10 flex flex-col items-center relative z-10">
-                                    <img src={logo} className="h-14 w-auto mb-4 opacity-100 brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" alt="" />
-                                    <div className="text-[10px] tracking-[0.2em] text-white/90 uppercase font-black text-center whitespace-nowrap">
-                                        Ideate . Visualize . Create
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </motion.div>
