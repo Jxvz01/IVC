@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import logo from '../assets/logo.png';
 
 const LoadingScreen = () => {
     const tagline = "IDEATE VISUALIZE AND CREATE";
@@ -31,7 +32,7 @@ const LoadingScreen = () => {
                                 <div className="relative">
                                     <motion.img
                                         layoutId="main-logo"
-                                        src="/logo.png"
+                                        src={logo}
                                         alt="IVC Logo"
                                         className="relative w-28 h-28 md:w-36 md:h-36 drop-shadow-liquid"
                                     />
