@@ -40,8 +40,8 @@ function App() {
               <section id="events"><Events /></section>
               <section id="domains"><Domains /></section>
               <section id="projects"><Projects /></section>
-              <section id="join"><Join /></section>
               <section id="achievements"><Achievements /></section>
+              <section id="join"><Join /></section>
             </main>
 
             <footer className="py-12 text-center text-gray-500 text-sm border-t border-white/5 bg-white/[0.02] backdrop-blur-xl">

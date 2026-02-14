@@ -12,8 +12,8 @@ const Navbar = () => {
         { name: 'Events', id: 'events' },
         { name: 'Domains', id: 'domains' },
         { name: 'Projects', id: 'projects' },
-        { name: 'Join IVC', id: 'join' },
         { name: 'Achievements', id: 'achievements' },
+        { name: 'Join IVC', id: 'join' },
     ];
 
     const scrollToSection = (id) => {
