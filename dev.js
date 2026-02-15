@@ -1,29 +1,15 @@
-const { spawn } = require('child_process');
+const { execSync } = require('child_process');
 
-// Get arguments passed to the script (skip 'node' and 'dev.js')
-const args = process.argv.slice(2);
+// Get arguments (e.g., --host)
+const args = process.argv.slice(2).filter(arg => arg !== '--');
+const clientArgs = args.length > 0 ? ` -- ${args.join(' ')}` : '';
 
-// Filter out the '--' that npm sometimes leaves in process.argv depending on shell/version
-const filteredArgs = args.filter(arg => arg !== '--');
+const command = `npx concurrently "npm run dev --prefix server" "npm run dev --prefix client${clientArgs}"`;
 
-// If there are arguments, prepare them to be passed to the client script
-// We use '-- ' to ensure npm passes them through to the underlying vite command
-const clientArgs = filteredArgs.length > 0 ? '-- ' + filteredArgs.join(' ') : '';
+console.log(`🚀 Executing: ${command}`);
 
-const concurrentlyArgs = [
-    'concurrently',
-    '--kill-others',
-    '--prefix-colors', 'blue,green',
-    '--names', 'server,client',
-    '"npm run dev --prefix server"',
-    `"npm run dev --prefix client ${clientArgs}"`
-];
-
-const child = spawn('npx', concurrentlyArgs, {
-    shell: true,
-    stdio: 'inherit'
-});
-
-child.on('exit', (code) => {
-    process.exit(code || 0);
-});
+try {
+    execSync(command, { stdio: 'inherit' });
+} catch (e) {
+    // Silent exit, concurrently handles errors
+}

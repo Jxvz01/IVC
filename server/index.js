@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 🛡️ Security Middleware
+// Security Middleware
 app.use(helmet()); // Sets various HTTP headers for security
 app.use(cors({
     origin: process.env.NODE_ENV === 'production'
@@ -19,7 +19,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 
-// 🚦 Global Rate Limiting (General protection)
+// Global Rate Limiting (General protection)
 const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // Limit each IP to 100 requests per window
@@ -27,7 +27,7 @@ const globalLimiter = rateLimit({
 });
 app.use('/api', globalLimiter);
 
-// 📦 Payload Size Limiting
+// Payload Size Limiting
 app.use(express.json({ limit: '10kb' })); // Prevents large JSON body attacks
 
 // Mock Data
@@ -80,43 +80,46 @@ app.get('/api/projects', (req, res) => {
     res.json(projects);
 });
 
-// 📨 Targeted Rate Limiting for the Join route (Anti-Spam)
+// Targeted Rate Limiting for the Join route (Anti-Spam)
 const joinLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 5, // Limit each IP to 5 join requests per hour
     message: { error: 'Too many applications from this IP, please try again after an hour.' }
 });
 
+const { z } = require('zod');
+
+// Validation Schema
+const joinSchema = z.object({
+    name: z.string().min(2).max(50).trim(),
+    email: z.string().email().max(100).trim().toLowerCase(),
+    department: z.string().max(100).trim().optional().default('N/A'),
+    year: z.string().max(20).trim().optional().default('N/A')
+});
+
 app.post('/api/join', joinLimiter, (req, res) => {
-    const { name, email, department, year } = req.body;
+    try {
+        const validatedData = joinSchema.parse(req.body);
 
-    // Simple Data Validation
-    if (!name || !email) {
-        return res.status(400).json({ error: 'Name and Email are required' });
+        const newMember = {
+            id: members.length + 1,
+            ...validatedData,
+            joinedAt: new Date()
+        };
+
+        members.push(newMember);
+        console.log('New Member Joined:', newMember.name);
+        res.status(201).json({ message: 'Successfully joined IVC!', member: newMember });
+
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({
+                error: 'Validation failed',
+                details: error.errors.map(e => ({ path: e.path, message: e.message }))
+            });
+        }
+        res.status(500).json({ error: 'Internal server error' });
     }
-
-    // Basic length and format checks
-    if (name.length > 50 || email.length > 100) {
-        return res.status(400).json({ error: 'Input too long' });
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        return res.status(400).json({ error: 'Invalid email format' });
-    }
-
-    const newMember = {
-        id: members.length + 1,
-        name: name.trim(),
-        email: email.trim().toLowerCase(),
-        department: department?.trim() || 'N/A',
-        year: year?.trim() || 'N/A',
-        joinedAt: new Date()
-    };
-
-    members.push(newMember);
-    console.log('New Member Joined:', newMember.name);
-    res.status(201).json({ message: 'Successfully joined IVC!', member: newMember });
 });
 
 // Export the app for Vercel
