@@ -54,7 +54,7 @@ const DomainCard = ({ title, description }) => {
 
                 <div className="mt-8 flex items-center gap-3 text-ivc-primary font-black tracking-[0.2em] text-[10px] uppercase">
                     Explore Domain
-                    <span className="group-hover:translate-x-3 transition-transform duration-300">→</span>
+                    <span className="group-hover:translate-x-3 transition-transform duration-300">-&gt;</span>
                 </div>
             </div>
 

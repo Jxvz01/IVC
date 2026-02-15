@@ -4,7 +4,7 @@
   "description": "Modern website for Innovation & Value Creation Club.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev": "node dev.js",
     "build": "npm install --prefix client && npm install --prefix server && npm run build --prefix client"
   },
   "keywords": [],
