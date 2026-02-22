@@ -127,26 +127,24 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash-latest",
-    systemInstruction: `You are the IVC (Innovations for Vivid Creations) Club Assistant. 
-    Your mission is to help people learn about the club, our projects, and how to join.
-    
-    CLUB DETAILS:
-    - Mission: Fostering innovation and entrepreneurship, transforming ideas into reality through collaboration, technology, and mentorship.
-    - Domains: Web Development, AI & ML, IoT & Hardware, Entrepreneurship, and UI/UX Design.
-    - Upcoming Events: Innovation Summit 2024 (flagship 24-hour hackathon) and GenAI Workshops.
-    - Notable Projects: 
-        1. Smart Campus Ecosystem (IoT-based sensor network for energy optimization).
-        2. Pulse AI (Advanced diagnosis system using computer vision).
-    - Team: Our team consists of passionate student coordinators across all domains.
-    - How to Join: Interested members can fill out the 'Join the Club' form on the website with their name, email, department, and year.
-    
-    TONE & BOUNDARIES:
-    - Be professional, encouraging, and highly knowledgeable about these club topics.
-    - You are a 'Weak AI' restricted to IVC-related topics.
-    - If a user asks about anything unrelated (politics, sports, general math, etc.), politely redirect them. Examples: 'I specialize in IVC club innovation! I'd love to tell you about our hackathons instead.' or 'That's an interesting question, but as the IVC Assistant, I'm here to discuss our club projects.'
-    - If asked about the website, explain that it's built to showcase IVC's innovation.`
-});
+    model: "gemini-2.0-flash-lite",
+    systemInstruction: {
+        role: "system",
+        parts: [{
+            text: `Persona: IVC Club (Innovations for Vivid Creations) Assistant.
+Mission: Help users with club info, projects, and membership.
+Context:
+- Mission: Fostering innovation via collaboration & tech.
+- Domains: Web, AI/ML, IoT, Entrepreneurship, UI/UX.
+- Events: Innovation Summit (hackathon), GenAI Workshops.
+- Projects: Smart Campus (IoT), Pulse AI (Medical AI).
+- Join: Use 'Join' form (Name, Email, Dept, Year).
+Rules:
+- Be professional & encouraging.
+- Strictly IVC topics only. Redirect other queries politely.
+- Site shows club innovation.` }]
+    }
+}, { apiVersion: 'v1beta' });
 
 // Chat Route
 app.post('/api/chat', async (req, res) => {
@@ -162,15 +160,45 @@ app.post('/api/chat', async (req, res) => {
             history: [],
         });
 
-        const result = await chat.sendMessage(message);
-        const response = await result.response;
-        const text = response.text();
+        const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+        let lastError = null;
+        let attempts = 0;
+        const maxAttempts = 2;
 
-        res.json({ reply: text });
+        while (attempts < maxAttempts) {
+            try {
+                const result = await chat.sendMessage(message);
+                const response = await result.response;
+                const text = response.text();
+                return res.json({ reply: text });
+            } catch (error) {
+                lastError = error;
+                attempts++;
+                const isRetryable = error.status === 429 || error.status === 500 || (error.message && (error.message.includes('429') || error.message.includes('500')));
+                if (isRetryable && attempts < maxAttempts) {
+                    console.log(`Retry attempt ${attempts} after 2s delay...`);
+                    await delay(2000);
+                    continue;
+                }
+                break;
+            }
+        }
 
+        console.error('Final Gemini Error:', lastError);
+        if (lastError.status === 429 || (lastError.message && lastError.message.includes('429'))) {
+            return res.status(429).json({
+                error: 'Rate limit exceeded',
+                reply: "I'm a bit overwhelmed with requests right now! Please give me a few seconds to catch my breath and try again. 😅"
+            });
+        }
+
+        res.status(500).json({
+            error: 'Failed to get AI response',
+            reply: "I'm having a small technical hiccup. Could you try rephrasing that or checking back in a minute?"
+        });
     } catch (error) {
-        console.error('Gemini Error:', error);
-        res.status(500).json({ error: 'Failed to get AI response' });
+        console.error('Route Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
